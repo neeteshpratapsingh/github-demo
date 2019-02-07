@@ -23,7 +23,7 @@ class Login extends Component {
 			email: this.state.email,
 			password: this.state.password
 		};
-		fetch('http://localhost:4000/user/login', {
+		fetch('http://localhost:4500/user/login', {
 			method: 'POST',
 			body: JSON.stringify({
 				email: user.email,
@@ -35,6 +35,7 @@ class Login extends Component {
 		})
 			.then((resp) => resp.json())
 			.then((resp) => {
+				console.log(resp);
 				localStorage.setItem('JWT', resp.token);
 			})
 			.then((res) => {
@@ -45,7 +46,7 @@ class Login extends Component {
 			console.log('SIGNED IN');
 		}
 
-		// const res = axios.post('http://localhost:4000/user/signup', { email: user.email, password: user.password });
+		// const res = axios.post('http://localhost:4500/user/signup', { email: user.email, password: user.password });
 		// console.log(res);
 	}
 
@@ -66,6 +67,7 @@ class Login extends Component {
 							<h1 className="h3 mb-3 font-weight-normal"> Please sign in</h1>
 							<div className="form-group">
 								<label htmlFor="email">Email Address</label>
+								<br />
 								<input
 									type="email"
 									className="form control"
@@ -78,6 +80,7 @@ class Login extends Component {
 
 							<div className="form-group">
 								<label htmlFor="password">Password</label>
+								<br />
 								<input
 									type="password"
 									className="form control"

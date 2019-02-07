@@ -3,10 +3,13 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 const userRoutes = require('./api/routes/user');
+const postsRoutes = require('./api/routes/posts');
+const commentsRoutes = require('./api/routes/comments');
 
 mongoose.connect('mongodb://localhost:27017/myapp', { useNewUrlParser: true });
 
@@ -20,6 +23,7 @@ app.use((req, res, next) => {
 	}
 	next();
 });
+app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -28,6 +32,8 @@ app.use(bodyParser.json());
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
 app.use('/user', userRoutes);
+app.use('/posts', postsRoutes);
+app.use('/comments', commentsRoutes);
 
 app.use((req, res, next) => {
 	const error = new Error('not found');

@@ -28,7 +28,7 @@ class Register extends Component {
 			password: this.state.password
 		};
 		console.log(user);
-		await fetch('http://localhost:4000/user/signup', {
+		await fetch('http://localhost:4500/user/signup', {
 			//line 31-42 added
 			method: 'POST',
 			body: JSON.stringify({
@@ -64,6 +64,7 @@ class Register extends Component {
 							<h1 className="h3 mb-3 font-weight-normal"> Please sign UP</h1>
 							<div className="form-group">
 								<label htmlFor="first_name">First Name</label>
+								<br />
 								<input
 									type="text"
 									className="form control"
@@ -76,6 +77,7 @@ class Register extends Component {
 
 							<div className="form-group">
 								<label htmlFor="last_name">Last Name</label>
+								<br />
 								<input
 									type="text"
 									className="form control"
@@ -87,7 +89,7 @@ class Register extends Component {
 							</div>
 
 							<div className="form-group">
-								<label htmlFor="email">Email Address</label>
+								<label htmlFor="email">Email Address</label> <br />
 								<input
 									type="email"
 									className="form control"
@@ -100,6 +102,7 @@ class Register extends Component {
 
 							<div className="form-group">
 								<label htmlFor="password">Password</label>
+								<br />
 								<input
 									type="password"
 									className="form control"
