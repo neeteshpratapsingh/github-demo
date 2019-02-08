@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
+
 class Posts extends Component {
 	constructor() {
 		super();
@@ -126,4 +128,15 @@ class Comment extends Component {
 	}
 }
 
-export default Posts;
+const mapStateToProps = (state) => {
+	return {
+		posts: state.posts
+	};
+};
+
+const mapDispachToProps = (dispatch) => {
+	return {
+		showPost: () => dispatch({ type: 'POST' })
+	};
+};
+export default connect(mapStateToProps, mapDispachToProps)(Posts);
