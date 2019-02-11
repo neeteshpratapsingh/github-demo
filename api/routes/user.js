@@ -80,6 +80,7 @@ router.post('/login', (req, res, next) => {
 							expiresIn: '30d'
 						}
 					);
+					console.log(token);
 					return res.status(200).json({
 						message: 'Auth successful',
 						token: token

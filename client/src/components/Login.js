@@ -35,7 +35,7 @@ class Login extends Component {
 		})
 			.then((resp) => resp.json())
 			.then((resp) => {
-				console.log(resp);
+				console.log('eredaf', resp);
 				localStorage.setItem('JWT', resp.token);
 			})
 			.then((res) => {

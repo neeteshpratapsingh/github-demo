@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 class Form extends Component {
 	constructor() {
@@ -12,6 +13,8 @@ class Form extends Component {
 		};
 	}
 	handleClick = () => {
+		console.log('calling from form');
+		this.props.getPost();
 		axios
 			.post('http://localhost:4500/posts', {
 				title: this.state.title,
@@ -19,11 +22,14 @@ class Form extends Component {
 				author: this.state.author
 			})
 			.then((response) => {
-				console.log(response);
+				console.log('calling from form');
+				this.props.getPost();
 			})
 			.catch((error) => {
 				console.log(error);
 			});
+		console.log('calling from form');
+		this.props.getPost();
 		// this.redirectToTarget();
 	};
 	// redirectToTarget = () => {
@@ -85,4 +91,10 @@ class Form extends Component {
 	}
 }
 
-export default Form;
+const mapDispachToProps = (dispatch) => {
+	return {
+		// showPost: () => dispatch({ type: 'POST' }),
+		getPost: () => dispatch({ type: 'GET_POST' })
+	};
+};
+export default connect(null, mapDispachToProps)(Form);

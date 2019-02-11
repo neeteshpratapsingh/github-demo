@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import jwt_decode from 'jwt-decode';
-import Posts from './PostComments';
+import Posts from './Posts';
+import Comment from './Comments';
 import Form from './Form';
 
 class Profile extends Component {
