@@ -22,15 +22,6 @@ class Comment extends Component {
 			body: this.state.comment
 		};
 		this.props.sendData(data);
-
-		// await axios
-		// 	.post('http://localhost:4500/comments', {
-		// 		postId: e.target.value,
-		// 		body: this.state.comment
-		// 	})
-		// 	.then((response) => {
-		// 		console.log(response.data);
-		// 	});
 		this.props.getComments();
 	};
 	componentDidMount() {

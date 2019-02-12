@@ -15,15 +15,11 @@ class Posts extends Component {
 
 	handleDelete = async (e) => {
 		e.preventDefault();
-
-		await axios.delete('http://localhost:4500/posts/' + e.target.value);
+		const data = e.target.value;
+		this.props.deleteData(data);
 		await this.props.getPost();
 	};
 	componentDidMount() {
-		// axios.get('http://localhost:4500/posts').then((response) => {
-		// 	const posts = response.data;
-		// 	this.setState({ posts });
-		// });
 		this.props.getPost();
 	}
 	render() {
@@ -77,8 +73,8 @@ const mapStateToProps = (state) => {
 
 const mapDispachToProps = (dispatch) => {
 	return {
-		// showPost: () => dispatch({ type: 'POST' }),
-		getPost: () => dispatch({ type: 'GET_POST' })
+		getPost: () => dispatch({ type: 'GET_POST' }),
+		deleteData: (data) => dispatch({ type: 'DELETE_DATA', data })
 	};
 };
 export default connect(mapStateToProps, mapDispachToProps)(Posts);

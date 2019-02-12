@@ -12,30 +12,15 @@ class Form extends Component {
 			author: ''
 		};
 	}
-	handleClick = () => {
-		console.log('calling from form');
+	handleClick = async (e) => {
+		const data = {
+			title: this.state.title,
+			article: this.state.article,
+			author: this.state.author
+		};
+		this.props.formData(data);
 		this.props.getPost();
-		axios
-			.post('http://localhost:4500/posts', {
-				title: this.state.title,
-				article: this.state.article,
-				author: this.state.author
-			})
-			.then((response) => {
-				console.log('calling from form');
-				this.props.getPost();
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-		console.log('calling from form');
-		this.props.getPost();
-		// this.redirectToTarget();
 	};
-	// redirectToTarget = () => {
-	// 	this.props.history.push(`/p`);
-	// 	window.location.reload();
-	// };
 
 	handleTitle = (e) =>
 		this.setState({
@@ -93,7 +78,7 @@ class Form extends Component {
 
 const mapDispachToProps = (dispatch) => {
 	return {
-		// showPost: () => dispatch({ type: 'POST' }),
+		formData: (data) => dispatch({ type: 'FORM_DATA', data }),
 		getPost: () => dispatch({ type: 'GET_POST' })
 	};
 };

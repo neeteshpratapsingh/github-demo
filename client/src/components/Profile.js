@@ -10,18 +10,24 @@ class Profile extends Component {
 		this.state = {
 			first_name: '',
 			last_name: '',
-			email: ''
+			email: '',
+			loaded: false
 		};
 	}
 
-	componentDidMount() {
-		const token = localStorage.getItem('JWT');
-		const decoded = jwt_decode(token);
-		this.setState({
+	jwt = async () => {
+		const token = await localStorage.getItem('JWT');
+		console.log('token...', token);
+		const decoded = await jwt_decode(token);
+		await this.setState({
 			first_name: decoded.first_name,
 			last_name: decoded.last_name,
-			email: decoded.email
+			email: decoded.email,
+			loaded: true
 		});
+	};
+	componentDidMount() {
+		this.jwt();
 	}
 
 	render() {

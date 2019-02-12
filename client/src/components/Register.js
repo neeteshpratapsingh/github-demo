@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { register } from './userFunction';
+import { connect } from 'react-redux';
 
 class Register extends Component {
 	constructor() {
@@ -10,7 +10,6 @@ class Register extends Component {
 			email: '',
 			password: ''
 		};
-		//this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 	}
 
@@ -18,42 +17,17 @@ class Register extends Component {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
-	async onSubmit(e) {
+	onSubmit = async (e) => {
 		e.preventDefault();
-
-		const user = {
+		const data = {
 			first_name: this.state.first_name,
 			last_name: this.state.last_name,
 			email: this.state.email,
 			password: this.state.password
 		};
-		console.log(user);
-		await fetch('http://localhost:4500/user/signup', {
-			//line 31-42 added
-			method: 'POST',
-			body: JSON.stringify({
-				first_name: user.first_name,
-				last_name: user.last_name,
-				email: user.email,
-				password: user.password
-			}),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-			.then((resp) => resp.json())
-			.then((resp) => {
-				this.props.history.push('/login');
-			})
-			.then((res) => {
-				this.props.history.push('/login');
-			});
-	}
-
-	// 	register(user).then((res) => {
-	// 		this.props.history.push('/login');
-	// 	});
-	// }
+		this.props.registerData(data);
+		this.props.history.push('/login');
+	};
 
 	render() {
 		return (
@@ -123,4 +97,9 @@ class Register extends Component {
 	}
 }
 
-export default Register;
+const mapDispachToProps = (dispatch) => {
+	return {
+		registerData: (data) => dispatch({ type: 'REGISTER_DATA', data })
+	};
+};
+export default connect(null, mapDispachToProps)(Register);

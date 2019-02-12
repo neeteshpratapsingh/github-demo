@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { login } from './userFunction';
+import { connect } from 'react-redux';
 
 class Login extends Component {
 	constructor() {
@@ -16,47 +16,15 @@ class Login extends Component {
 		this.setState({ [e.target.name]: e.target.value });
 	}
 
-	onSubmit(e) {
+	onSubmit = async (e) => {
 		e.preventDefault();
-
 		const user = {
 			email: this.state.email,
 			password: this.state.password
 		};
-		fetch('http://localhost:4500/user/login', {
-			method: 'POST',
-			body: JSON.stringify({
-				email: user.email,
-				password: user.password
-			}),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		})
-			.then((resp) => resp.json())
-			.then((resp) => {
-				console.log('eredaf', resp);
-				localStorage.setItem('JWT', resp.token);
-			})
-			.then((res) => {
-				this.props.history.push('/profile');
-			});
-		const token = localStorage.getItem('JWT');
-		if (token) {
-			console.log('SIGNED IN');
-		}
-
-		// const res = axios.post('http://localhost:4500/user/signup', { email: user.email, password: user.password });
-		// console.log(res);
-	}
-
-	// 	login(user).then((res) => {
-	// 		if (res) {
-	// 			console.log('redirecting');
-	// 			this.props.history.push('/profile');
-	// 		}
-	// 	});
-	// }
+		this.props.userData(user);
+		this.props.history.push('/profile');
+	};
 
 	render() {
 		return (
@@ -101,4 +69,9 @@ class Login extends Component {
 	}
 }
 
-export default Login;
+const mapDispachToProps = (dispatch) => {
+	return {
+		userData: (user) => dispatch({ type: 'USER_DATA', user })
+	};
+};
+export default connect(null, mapDispachToProps)(Login);
